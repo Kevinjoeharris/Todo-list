@@ -6,9 +6,12 @@ export default function App() {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
 
+  // ✅ Use env variable or fallback to localhost for local dev
+  const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const fetchTodos = async () => {
     try {
-      const res = await axios.get("http://host.docker.internal:5000/api/todos");
+      const res = await axios.get(`${API_BASE}/api/todos`);
       setTodos(res.data);
     } catch (err) {
       console.error("Failed to fetch todos:", err);
@@ -17,21 +20,33 @@ export default function App() {
 
   const addTodo = async () => {
     if (!text.trim()) return;
-    await axios.post("http://host.docker.internal:5000/api/todos", { text });
-    setText("");
-    fetchTodos();
+    try {
+      await axios.post(`${API_BASE}/api/todos`, { text });
+      setText("");
+      fetchTodos();
+    } catch (err) {
+      console.error("Failed to add todo:", err);
+    }
   };
 
   const toggleTodo = async (id, completed) => {
-    await axios.put(`http://host.docker.internal:5000/api/todos/${id}`, {
-      completed: !completed,
-    });
-    fetchTodos();
+    try {
+      await axios.put(`${API_BASE}/api/todos/${id}`, {
+        completed: !completed,
+      });
+      fetchTodos();
+    } catch (err) {
+      console.error("Failed to toggle todo:", err);
+    }
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`http://host.docker.internal:5000/api/todos/${id}`);
-    fetchTodos();
+    try {
+      await axios.delete(`${API_BASE}/api/todos/${id}`);
+      fetchTodos();
+    } catch (err) {
+      console.error("Failed to delete todo:", err);
+    }
   };
 
   useEffect(() => {
@@ -57,7 +72,10 @@ export default function App() {
             <span onClick={() => toggleTodo(todo._id, todo.completed)}>
               {todo.text}
             </span>
-            <button onClick={() => deleteTodo(todo._id)} className="delete-btn">
+            <button
+              onClick={() => deleteTodo(todo._id)}
+              className="delete-btn"
+            >
               ❌
             </button>
           </li>
