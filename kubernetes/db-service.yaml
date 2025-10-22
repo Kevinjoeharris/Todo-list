@@ -4,7 +4,7 @@ metadata:
   name: db-service
 spec:
   selector:
-    type: todo-db
+    app: todo-db
   ports:
     - protocol: TCP
       port: 27017
