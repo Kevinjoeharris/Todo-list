@@ -6,55 +6,61 @@ export default function App() {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  // For Local deployment
+  //const API_URL = "http://localhost:5000";
+
+  // For Kubernetes deployment
+    const API_URL = import.meta.env.VITE_API_URL
 
   const fetchTodos = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/api/todos`);
+      const res = await axios.get(`${API_URL}/api/todos`);
       setTodos(res.data);
     } catch (err) {
-      console.error("Failed to fetch todos:", err);
+      console.error("❌ Failed to fetch todos:", err.message);
     }
   };
 
   const addTodo = async () => {
     if (!text.trim()) return;
     try {
-      await axios.post(`${API_BASE}/api/todos`, { text });
+      await axios.post(`${API_URL}/api/todos`, { text });
       setText("");
       fetchTodos();
     } catch (err) {
-      console.error("Failed to add todo:", err);
+      console.error("❌ Failed to add todo:", err.message);
     }
   };
 
   const toggleTodo = async (id, completed) => {
     try {
-      await axios.put(`${API_BASE}/api/todos/${id}`, {
+      await axios.put(`${API_URL}/api/todos/${id}`, {
         completed: !completed,
       });
       fetchTodos();
     } catch (err) {
-      console.error("Failed to toggle todo:", err);
+      console.error("❌ Failed to toggle todo:", err.message);
     }
   };
 
   const deleteTodo = async (id) => {
     try {
-      await axios.delete(`${API_BASE}/api/todos/${id}`);
+      await axios.delete(`${API_URL}/api/todos/${id}`);
       fetchTodos();
     } catch (err) {
-      console.error("Failed to delete todo:", err);
+      console.error("❌ Failed to delete todo:", err.message);
     }
   };
 
   useEffect(() => {
+    console.log("📡 Using API:", API_URL); // helpful debug log
     fetchTodos();
   }, []);
 
   return (
     <div className="container">
       <h1>📝 My Todo List</h1>
+
       <div className="input-container">
         <input
           type="text"

@@ -19,3 +19,6 @@ spec:
           image: kevinjoehar/todo-frontend:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: VITE_API_URL
+              value: "http://backend-service:5000"
