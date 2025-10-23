@@ -6,8 +6,7 @@ export default function App() {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
 
-  // ✅ Use env variable or fallback to localhost for local dev
-  const API_BASE = process.env.REACT_APP_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   const fetchTodos = async () => {
     try {
