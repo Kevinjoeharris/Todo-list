@@ -5,7 +5,7 @@ metadata:
   labels:
     app: todo-backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: todo-backend
@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: kevinjoehar/todo-backend:latest
+          image: todo-backend
+          imagePullPolicy: Never
           ports:
             - containerPort: 5000
           env:

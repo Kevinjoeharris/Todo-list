@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: todo-frontend
@@ -14,9 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: kevinjoehar/todo-frontend:latest
+          image: todo-frontend
+          imagePullPolicy: Never
           ports:
-            - containerPort: 80
-          env:
-            - name: VITE_API_URL
-              value: "http://backend-service:5000"
+            - containerPort: 3000

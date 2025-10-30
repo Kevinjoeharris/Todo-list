@@ -6,19 +6,12 @@ export default function App() {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
 
-  // For Local deployment
-  //const API_URL = "http://localhost:5000";
-
-  // For Kubernetes deployment
-  //const API_URL = "http://20.246.192.224:5000";
-
-  const API_URL = import.meta.env.VITE_API_URL;
-
-
+  // Ingress API base path
+  const API_URL = "/api";
 
   const fetchTodos = async () => {
     try {
-      const res = await axios.get(`${API_URL}/api/todos`);
+      const res = await axios.get(`${API_URL}/todos`);
       setTodos(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch todos:", err.message);
@@ -28,7 +21,7 @@ export default function App() {
   const addTodo = async () => {
     if (!text.trim()) return;
     try {
-      await axios.post(`${API_URL}/api/todos`, { text });
+      await axios.post(`${API_URL}/todos`, { text });
       setText("");
       fetchTodos();
     } catch (err) {
@@ -38,7 +31,7 @@ export default function App() {
 
   const toggleTodo = async (id, completed) => {
     try {
-      await axios.put(`${API_URL}/api/todos/${id}`, {
+      await axios.put(`${API_URL}/todos/${id}`, {
         completed: !completed,
       });
       fetchTodos();
@@ -49,7 +42,7 @@ export default function App() {
 
   const deleteTodo = async (id) => {
     try {
-      await axios.delete(`${API_URL}/api/todos/${id}`);
+      await axios.delete(`${API_URL}/todos/${id}`);
       fetchTodos();
     } catch (err) {
       console.error("❌ Failed to delete todo:", err.message);
@@ -57,7 +50,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    console.log("📡 Using API:", API_URL); // helpful debug log
+    console.log("📡 Using API:", API_URL);
     fetchTodos();
   }, []);
 
