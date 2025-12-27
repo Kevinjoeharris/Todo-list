@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-# Stage 2: Production Stage (Minimal Runtime)
+# Stage 2: Production Stage
 FROM node:20-alpine AS production 
 
 ENV NODE_ENV production

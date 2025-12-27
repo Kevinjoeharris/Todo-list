@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: todo-backend
-          imagePullPolicy: Never
+          image: kevinjoehar/todo-backend
           ports:
             - containerPort: 5000
           env:
