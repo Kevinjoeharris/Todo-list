@@ -4,21 +4,19 @@ This work is a proof of concepts of a cloud-native app deployment, Kubernetes ne
 
 **Pre-requisites**
 Before diving in, I made sure I had:
-
-AWS Account: IAM user with permissions for EKS.
-Local Setup: NodeJS, pip, Docker, Git, AWS CLI, MongoDB.
-Image Registry: Docker Hub account
-📂 Repo → https://github.com/Kevinjoeharris/Todo-list
+* AWS Account: IAM user with permissions for EKS.
+* Local Setup: NodeJS, pip, Docker, Git, AWS CLI, MongoDB.
+* Image Registry: Docker Hub account
 
 **Tech Stack**
 For this project, I used:
 
-Source Control: GitHub
-Containerization: Docker
-Image Registry: Docker Hub
-Orchestration: AWS EKS
-Application: NodeJS
-Database: MongoDB
-Networking / Routing: ALB Ingress Controller
+* Source Control: GitHub
+* Containerization: Docker
+* Image Registry: Docker Hub
+* Orchestration: AWS EKS
+* Application: NodeJS
+* Database: MongoDB
+* Networking / Routing: ALB Ingress Controller
 
 To read more on steps to implement, refer -> https://kevinjoeharris.medium.com/3-tier-to-do-application-nodejs-mongodb-and-aws-eks-62983d52da11
